@@ -104,7 +104,7 @@ class BaseFunction:
                 self.query &= (self.add_to_query(key, kwargs[key]))
             else:
                 self.query = self.add_to_query(key, kwargs[key])
-        if self.query is None and len(orderby)==0:
+        if self.query is None and len(_orderby)==0:
             self.query = mydal.db[self.table_name]['id'] != None
         if _fetch_only:
             return mydal.db(self.query).select(*_fetch_only, **_orderby)
