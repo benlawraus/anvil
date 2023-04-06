@@ -6,7 +6,7 @@ from .anvil_ui import *
 from .component import *
 
 
-class dict(UserDict):
+class RowDict(UserDict):
     def __init__(self, *args, **kwargs):
         if len(args) > 0:
             if isinstance(args[0], pydal.helpers.classes.Reference):
@@ -29,5 +29,6 @@ class dict(UserDict):
             args_ix.append((attr, val))
         return args_ix
 
-
+def dict(*args, **kwargs):
+    return RowDict(*args, **kwargs).data
 app = Mock()
