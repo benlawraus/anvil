@@ -4,18 +4,16 @@ from dataclasses import dataclass
 @dataclass
 class Transaction:
     def __enter__(self):
-        """Begin the transaction		"""
+        """Begin the transaction"""
         pass
 
-    def __exit__(self):
-        """End the transaction		"""
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        """End the transaction"""
         pass
 
     def abort(self):
-        """Abort this transaction. When it ends, all write operations performed during it will be cancelled		"""
+        """Abort this transaction. When it ends, all write operations performed during it will be cancelled"""
         pass
-
-    pass
 
 
 def get_connection_string(via_host=None, via_port=None):
