@@ -120,3 +120,8 @@ class BaseFunction:
                 continue
             field_list.append({'name': field, 'type': self.table_dict[field]})
         return field_list
+
+    def delete_all_rows(self):
+        mydal.db[self.table_name].truncate()
+        mydal.db.commit()
+        return
