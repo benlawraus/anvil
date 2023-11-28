@@ -43,11 +43,11 @@ def get_api_origin(environment):
     return Mock()
 
 
-def get_app_origin(environment):
+def get_app_origin(environment='development')->str:
     """Returns the root URL for the current app.By default, this function returns the URL for the current
     environment, which might be private or temporary (for example, if you are running your app in the Anvil Editor).
     If you want the URL for the published branch, pass ‘published’ as an argument. """
-    return Mock()
+    return 'http://localhost:80'
 
 
 def is_app_online():

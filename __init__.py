@@ -1,12 +1,13 @@
 from collections import UserDict
 
-import pydal.helpers.classes, pydal.objects
+import pydal.helpers.classes
+import pydal.objects
 
 from .anvil_ui import *
 from .component import *
 
 
-class dict(UserDict):
+class RowDict(UserDict):
     def __init__(self, *args, **kwargs):
         if len(args) > 0:
             if isinstance(args[0], pydal.helpers.classes.Reference):
@@ -20,7 +21,8 @@ class dict(UserDict):
         super().__init__(*args, **kwargs)
         return
 
-    def loop_attr(self, attr_list, args):
+    @staticmethod
+    def loop_attr(attr_list, args):
         args_ix = []
         for attr in attr_list:
             if attr in ('id', 'update_record', 'delete_record'):
@@ -28,6 +30,10 @@ class dict(UserDict):
             val = args[0][attr]
             args_ix.append((attr, val))
         return args_ix
+
+
+def dict(*args, **kwargs):
+    return RowDict(*args, **kwargs).data
 
 
 app = Mock()
