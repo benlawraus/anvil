@@ -3,9 +3,29 @@ from unittest.mock import Mock
 from .anvilJs import *
 
 
+class ExternalError(Exception):
+    pass
+
+
 class window(Mock):
     def Function(*args, **kwargs):
         return Mock()
+
+    class Array(list):
+        pass
+
+    class WeakMap(dict):
+        def __missing__(self, key):
+            return None
+
+    def get(self, *args, **kwargs):
+        return Mock()
+
+    def clearTimeout(self):
+        pass
+
+    def clearInterval(self):
+        pass
 
     class Promise:
         def __init__(self, *args, **kwargs):

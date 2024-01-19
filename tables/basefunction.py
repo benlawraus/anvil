@@ -10,6 +10,7 @@ class order_by:
         self.order = '|'.join(args)
         self.kwargs = kwargs
 
+
 class BaseFunction:
     """Saving rows and getting rows to/from the database"""
 
@@ -69,6 +70,16 @@ class BaseFunction:
             return mydal.db[self.table_name][key] >= val.arg
         elif isinstance(val, less_than_or_equal_to):
             return mydal.db[self.table_name][key] <= val.arg
+        elif isinstance(val, between):
+            if val.kwargs['min_inclusive']:
+                _query = mydal.db[self.table_name][key] >= val.arg[0]
+            else:
+                _query = mydal.db[self.table_name][key] > val.arg[0]
+            if val.kwargs['max_inclusive']:
+                _query &= mydal.db[self.table_name][key] <= val.arg[1]
+            else:
+                _query &= mydal.db[self.table_name][key] < val.arg[1]
+            return _query
         elif key is not None:
             return mydal.db[self.table_name][key] == val
         else:
@@ -84,7 +95,6 @@ class BaseFunction:
             if not arg.kwargs['ascending']:
                 _o = ~_o
         return _o
-
 
     def search(self, *args, **kwargs):
         _orderby = {}
@@ -104,7 +114,7 @@ class BaseFunction:
                 self.query &= (self.add_to_query(key, kwargs[key]))
             else:
                 self.query = self.add_to_query(key, kwargs[key])
-        if self.query is None and len(_orderby)==0:
+        if self.query is None and len(_orderby) == 0:
             self.query = mydal.db[self.table_name]['id'] != None
         if _fetch_only:
             return mydal.db(self.query).select(*_fetch_only, **_orderby)

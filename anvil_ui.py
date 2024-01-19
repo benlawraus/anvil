@@ -768,7 +768,8 @@ class Notification:
 
     def show(self):
         """Shows the notification		"""
-        pass
+        print(self.title)
+        print(self.message)
 
     pass
 

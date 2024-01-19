@@ -5,9 +5,11 @@ from .anvilServer import *
 import pickle
 from functools import wraps
 from types import NoneType
-
-import anvil.users
-from tests import pydal_def as mydal
+try:  # sometimes there is no database for the app and hence no users table
+    import anvil.users
+    from tests import pydal_def as mydal
+except ImportError:
+    pass
 import pathlib
 
 
@@ -82,6 +84,7 @@ def call(*args):
             new_args.append(pickle.loads(temp))
         return PLUGINS[args[0]](*new_args)
 
+call_s = call
 
 def class_decor(_class):
     """https://notebook.community/justanr/notebooks/decorator_day"""

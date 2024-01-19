@@ -1,6 +1,12 @@
-def between(min, max, min_inclusive=True, max_inclusive=False):
+class between:
     """Match values between the provided min and max, optionally inclusive."""
-    pass
+    def __init__(self, *args, **kwargs):   # min, max, min_inclusive=True, max_inclusive=False
+        self.arg = args
+        self.kwargs = kwargs
+        if 'min_inclusive' not in self.kwargs.keys():
+            self.kwargs['min_inclusive'] = True
+        if 'max_inclusive' not in self.kwargs.keys():
+            self.kwargs['max_inclusive'] = False
 
 
 def full_text_match(query, raw=False):

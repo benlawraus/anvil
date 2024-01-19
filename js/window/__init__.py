@@ -3,6 +3,16 @@ def Function(*args, **kwargs):
     return Mock()
 
 
+class Array(list):
+    pass
+
+
+class WeakMap(dict):
+    def __missing__(self, key):
+        return None
+
+def get(self, *args, **kwargs):
+    return dict()
 class Promise:
     def __init__(self, *args, **kwargs):
         # this is for the case in anvil_extras.storage.py:
