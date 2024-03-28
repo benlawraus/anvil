@@ -60,6 +60,12 @@ class BaseFunction:
                 for ix in range(1, len(_q)):
                     _query |= (_q[ix])
             return _query
+        elif isinstance(val, full_text_match):
+            return mydal.db[self.table_name][key].contains(val.arg)
+        elif isinstance(val, ilike):
+            return mydal.db[self.table_name][key].ilike(val.arg)
+        elif isinstance(val, like):
+            return mydal.db[self.table_name][key].like(val.arg)
         elif isinstance(val, not_):
             return mydal.db[self.table_name][key] != val.arg
         elif isinstance(val, less_than):

@@ -9,19 +9,23 @@ class between:
             self.kwargs['max_inclusive'] = False
 
 
-def full_text_match(query, raw=False):
-    """Match values that match the provided full-text search query."""
-    pass
+class full_text_match:
+    """Match values that match the provided full-text search query.
+    WARNING sql_lite does not support full text search, so a literal search is performed instead."""
+    def __init__(self, *args, **kwargs):   # min, max, min_inclusive=True, max_inclusive=False
+        self.arg = args[0]
 
 
-def ilike(*args):
+class ilike:
     """Match values using a case-insensitive ILIKE query, using the % wildcard character."""
-    pass
+    def __init__(self, *args, **kwargs):   # min, max, min_inclusive=True, max_inclusive=False
+        self.arg = args[0]
 
 
-def like(*args):
+class like:
     """Match values using a case-sensitive LIKE query, using the % wildcard character."""
-    pass
+    def __init__(self, *args, **kwargs):   # min, max, min_inclusive=True, max_inclusive=False
+        self.arg = args[0]
 
 
 def none_of(*query_expressions):
